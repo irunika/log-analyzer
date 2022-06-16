@@ -1,21 +1,21 @@
-package com.analyzer.logs;
+package com.logs.analyzer;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode
-public class ObjectCounter<T> {
-    private final T object;
+public class Counter<T> {
+    private final T value;
     private int count;
 
-    public ObjectCounter(T object) {
-        this.object = object;
+    public Counter(T object) {
+        this.value = object;
         this.count = 0;
     }
 
-    public ObjectCounter(T object, int count) {
-        this.object = object;
+    public Counter(T object, int count) {
+        this.value = object;
         this.count = count;
     }
 

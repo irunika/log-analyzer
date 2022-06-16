@@ -44,7 +44,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.analyzer.logs.Main</mainClass>
+                            <mainClass>com.logs.analyzer.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

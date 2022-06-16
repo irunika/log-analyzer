@@ -1,4 +1,4 @@
-package com.analyzer.logs.exception;
+package com.logs.analyzer.exception;
 
 public class LogAnalyzerException extends Exception{
 

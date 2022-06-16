@@ -1,6 +1,6 @@
-package com.analyzer.logs.creator;
+package com.logs.analyzer.creator;
 
-import com.analyzer.logs.exception.LogLineCreationException;
+import com.logs.analyzer.exception.LogLineCreatorException;
 
 /**
  * Create {@link LogLine} for the given Log Line Pattern.
@@ -14,5 +14,5 @@ public interface LogLineCreator {
      * @param logLineStr Log line string.
      * @return constructed {@link LogLine}.
      */
-    LogLine create(String logLineStr) throws LogLineCreationException;
+    LogLine create(String logLineStr) throws LogLineCreatorException;
 }

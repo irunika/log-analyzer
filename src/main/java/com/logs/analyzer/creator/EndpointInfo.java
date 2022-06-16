@@ -1,4 +1,4 @@
-package com.analyzer.logs.creator;
+package com.logs.analyzer.creator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
