@@ -71,8 +71,6 @@ public class LogLineCreatorImplTest {
         String logLine = "168.41.191.43 - - [11/Jul/2018:17:44:40 +0200] \"GET /temp-redirect HTTP/1.1\" 307 3574 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_7) AppleWebKit/534.24 (KHTML, like Gecko) RockMelt/0.9.58.494 Chrome/11.0.696.71 Safari/534.24";
         LogLine expectedLogLine = new LogLine("168.41.191.43", new EndpointInfo("GET", "/temp-redirect"), 307);
         LogLine generatedLogLine = logLineCreator.create(logLine);
-        System.out.println(expectedLogLine.hashCode());
-        System.out.println(generatedLogLine.hashCode());
         assertEquals(expectedLogLine, generatedLogLine);
     }
 }
