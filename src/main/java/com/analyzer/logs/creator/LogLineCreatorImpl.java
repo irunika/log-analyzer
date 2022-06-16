@@ -15,8 +15,11 @@ public class LogLineCreatorImpl implements LogLineCreator{
     private static final Pattern statusCodePattern = Pattern.compile("(?<=HTTP/\\d.\\d\"\\s)\\d{3}");
 
     @Override
-    public LogLine create(String logLineStr) {
-        return null;
+    public LogLine create(String logLineStr) throws LogLineCreationException {
+        String ipAddress = findIpAddress(logLineStr);
+        EndpointInfo endpointInfo = findEndpointInfo(logLineStr);
+        int httpStatusCode = findHttpStatusCode(logLineStr);
+        return new LogLine(ipAddress, endpointInfo, httpStatusCode);
     }
 
     public String findIpAddress(String logLineStr) throws LogLineCreationException {
@@ -41,7 +44,7 @@ public class LogLineCreatorImpl implements LogLineCreator{
         return new EndpointInfo(endpointSplit[0], endpointSplit[1]);
     }
 
-    public int httpStatusCode(String logLineStr) throws LogLineCreationException {
+    public int findHttpStatusCode(String logLineStr) throws LogLineCreationException {
         Matcher m = statusCodePattern.matcher(logLineStr);
         if (!m.find()) {
             throw new LogLineCreationException("Cannot find the HTTP status code in the log: " + logLineStr);

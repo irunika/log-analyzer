@@ -55,14 +55,24 @@ public class LogLineCreatorImplTest {
     @Test
     public void httpStatusCode_shouldReturnHttpStatusCode() throws LogLineCreationException {
         String logLine = "177.71.128.21 - - [10/Jul/2018:22:21:28 +0200] \"GET /intranet-analytics/ HTTP/1.1\" 200 3574 \"-\" \"Mozilla/5.0 (X11; U; Linux x86_64; fr-FR) AppleWebKit/534.7 (KHTML, like Gecko) Epiphany/2.30.6 Safari/534.7";
-        int statusCode = logLineCreator.httpStatusCode(logLine);
+        int statusCode = logLineCreator.findHttpStatusCode(logLine);
         assertEquals(200, statusCode);
     }
 
     @Test
     public void httpStatusCode_shouldThrowStatusCodeNotFoundException() {
         String logLineWithInvalidStatusCode = "177.71.128.21 - - [10/Jul/2018:22:21:28 +0200] \"GET /intranet-analytics/ HTTP/1.1\" STS 3574 \"-\" \"Mozilla/5.0 (X11; U; Linux x86_64; fr-FR) AppleWebKit/534.7 (KHTML, like Gecko) Epiphany/2.30.6 Safari/534.7";
-        Exception exception = assertThrows(LogLineCreationException.class, () -> logLineCreator.httpStatusCode(logLineWithInvalidStatusCode));
+        Exception exception = assertThrows(LogLineCreationException.class, () -> logLineCreator.findHttpStatusCode(logLineWithInvalidStatusCode));
         assertEquals("Cannot find the HTTP status code in the log: " + logLineWithInvalidStatusCode, exception.getMessage());
+    }
+
+    @Test
+    public void create_shouldCreateLogLine() throws LogLineCreationException {
+        String logLine = "168.41.191.43 - - [11/Jul/2018:17:44:40 +0200] \"GET /temp-redirect HTTP/1.1\" 307 3574 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_7) AppleWebKit/534.24 (KHTML, like Gecko) RockMelt/0.9.58.494 Chrome/11.0.696.71 Safari/534.24";
+        LogLine expectedLogLine = new LogLine("168.41.191.43", new EndpointInfo("GET", "/temp-redirect"), 307);
+        LogLine generatedLogLine = logLineCreator.create(logLine);
+        System.out.println(expectedLogLine.hashCode());
+        System.out.println(generatedLogLine.hashCode());
+        assertEquals(expectedLogLine, generatedLogLine);
     }
 }
